@@ -1,0 +1,64 @@
+Name     PET_RAM_ROM ;
+PartNo   at16v8a ;
+Date     05/04/2019 ;
+Revision 00 ;
+Designer Rene ;
+Company  Philips ;
+Assembly U00 ;
+Location Home ;
+Device   G16V8 ;
+
+/* INPUT PINS */
+PIN 1 = PHI2;
+PIN 2 = _RW;
+PIN 3 = A15;
+PIN 4 = A14;
+PIN 5 = A13;
+PIN 6 = A12;
+PIN 7 = A11;
+PIN 8 = SEL_RAM;
+PIN 9 = SEL_ROM;
+PIN 11 = GND;
+
+/* OUTPUT PINS */
+PIN 12 = AB_245;
+PIN 13 = _CE_245;
+PIN 14 = _CE_RAM;
+PIN 15 = _OE_RAM;
+PIN 16 = _WE_RAM;
+PIN 17 = _CE_ROM;
+PIN 18 = _OE_ROM;
+
+/* LOGIC */
+
+!_CE_RAM = SEL_RAM & PHI2 & !A15;
+!_OE_RAM = 'b'1;
+!_WE_RAM = !_RW;
+!_CE_ROM = SEL_ROM & PHI2 & A15 & (
+           (!A14 & !A13 & A12) #
+           (!A14 & A13 & !A12) #
+           (!A14 & A13 & A12) #
+           (A14 & !A13 & !A12) #
+           (A14 & !A13 & A12) #
+           (A14 & A13 & !A12 & !A11) #
+           (A14 & A13 & A12)
+           );
+!_OE_ROM = 'b'1;
+AB_245  = _RW;
+!_CE_245 = PHI2 & _CE_RAM & _CE_ROM;
+
+
+/* Memory map PET */
+/*
+MAP		A15 A14 A13 A12 A11	Area
+0000-7FFF	 0   x   x   x   x   RAM
+8000-8FFF	 1   0   0   0   x   Screen RAM
+9000-9FFF	 1   0   0   1   x   ROM Expansion
+A000-AFFF	 1   0   1   0   x   ROM Expansion
+B000-BFFF	 1   0   1   1   x   ROM Basic 4.0
+C000-CFFF	 1   1   0   0   x   ROM Basic
+D000-DFFF	 1   1   0   1   x   ROM Basic
+E000-E7FF	 1   1   1   0   0   ROM Editor
+E800-EFFF	 1   1   1   0   1   IO
+F000-FFFF	 1   1   1   1   x   ROM kernel
+*/

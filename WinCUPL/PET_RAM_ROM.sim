@@ -1,0 +1,71 @@
+%SIGNAL
+PIN   7 =  A11 
+PIN   6 =  A12 
+PIN   5 =  A13 
+PIN   4 =  A14 
+PIN   3 =  A15 
+PIN  12 =  AB_245 
+PIN  11 =  GND 
+PIN   1 =  PHI2 
+PIN   8 =  SEL_RAM 
+PIN   9 =  SEL_ROM 
+PIN  13 =  _CE_245 
+PIN  14 =  _CE_RAM 
+PIN  17 =  _CE_ROM 
+PIN  15 =  _OE_RAM 
+PIN  18 =  _OE_ROM 
+PIN   2 =  _RW 
+PIN  16 =  _WE_RAM 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+AB_245 =>
+    _RW
+
+!_CE_245 =>
+    PHI2 & _CE_RAM & _CE_ROM
+
+!_CE_RAM =>
+    !A15 & PHI2 & SEL_RAM
+
+!_CE_ROM =>
+    A12 & !A14 & A15 & PHI2 & SEL_ROM
+  # !A12 & A13 & !A14 & A15 & PHI2 & SEL_ROM
+  # !A13 & A14 & A15 & PHI2 & SEL_ROM
+  # A12 & A13 & A14 & A15 & PHI2 & SEL_ROM
+  # !A11 & !A12 & A13 & A14 & A15 & PHI2 & SEL_ROM
+
+!_OE_RAM =>
+    1 
+
+!_OE_ROM =>
+    1 
+
+!_WE_RAM =>
+    !_RW
+
+AB_245.oe  =>
+    1 
+
+_CE_245.oe  =>
+    1 
+
+_CE_RAM.oe  =>
+    1 
+
+_CE_ROM.oe  =>
+    1 
+
+_OE_RAM.oe  =>
+    1 
+
+_OE_ROM.oe  =>
+    1 
+
+_WE_RAM.oe  =>
+    1 
+
+%END
