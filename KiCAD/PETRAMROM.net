@@ -1,0 +1,67 @@
+(export (version D)
+  (design
+    (source C:\Users\renef\OneDrive\Documents\KiCAD\Test\test\test.sch)
+    (date "22/02/2019 12:33:59")
+    (tool "Eeschema (5.0.2)-1")
+    (sheet (number 1) (name /) (tstamps /)
+      (title_block
+        (title "Test schematic")
+        (company "Suitcase Development")
+        (rev 0.01)
+        (date 2019-02-22)
+        (source test.sch)
+        (comment (number 1) (value ""))
+        (comment (number 2) (value ""))
+        (comment (number 3) (value ""))
+        (comment (number 4) (value "")))))
+  (components
+    (comp (ref R1)
+      (value 220)
+      (footprint Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P25.40mm_Horizontal)
+      (datasheet ~)
+      (libsource (lib Device) (part R) (description Resistor))
+      (sheetpath (names /) (tstamps /))
+      (tstamp 5C6FD88C))
+    (comp (ref D1)
+      (value LED)
+      (footprint LED_THT:LED_D5.0mm)
+      (datasheet ~)
+      (libsource (lib Device) (part LED) (description "Light emitting diode"))
+      (sheetpath (names /) (tstamps /))
+      (tstamp 5C6FD917)))
+  (libparts
+    (libpart (lib Device) (part LED)
+      (description "Light emitting diode")
+      (docs ~)
+      (footprints
+        (fp LED*)
+        (fp LED_SMD:*)
+        (fp LED_THT:*))
+      (fields
+        (field (name Reference) D)
+        (field (name Value) LED))
+      (pins
+        (pin (num 1) (name K) (type passive))
+        (pin (num 2) (name A) (type passive))))
+    (libpart (lib Device) (part R)
+      (description Resistor)
+      (docs ~)
+      (footprints
+        (fp R_*))
+      (fields
+        (field (name Reference) R)
+        (field (name Value) R))
+      (pins
+        (pin (num 1) (name ~) (type passive))
+        (pin (num 2) (name ~) (type passive)))))
+  (libraries
+    (library (logical Device)
+      (uri "C:\\Program Files\\KiCad\\share\\kicad\\library/Device.lib")))
+  (nets
+    (net (code 1) (name +5V)
+      (node (ref D1) (pin 2)))
+    (net (code 2) (name GND)
+      (node (ref R1) (pin 2)))
+    (net (code 3) (name "Net-(D1-Pad1)")
+      (node (ref R1) (pin 1))
+      (node (ref D1) (pin 1)))))
